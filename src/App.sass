@@ -1,0 +1,95 @@
+.wrapper
+    background: #fff
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04)
+    border-radius: 20px
+    max-width: 1080px
+    margin: 50px auto
+
+header
+    display: flex
+    justify-content: space-between
+    border-bottom: 1px solid #f4f4f4
+    padding-bottom: 40px
+
+    .headerLeft
+        display: flex
+        margin: 43px 0 0 45px
+
+        div
+            h3
+                text-transform: uppercase
+            p
+                color: #9D9D9D
+
+        img
+            margin-right: 15px
+            cursor: pointer
+
+    .headerRight
+        display: flex
+        justify-content: space-between
+        align-items: center
+        list-style-type: none
+        margin: 50px 63px 0 45px
+        min-width: 185px
+        padding: 0
+
+        li
+            display: flex
+
+            span
+                margin-left: 10px
+            img
+                cursor: pointer
+
+.content
+    padding: 40px
+
+    &__header
+        margin-bottom: 40px
+
+    &__wrapper
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+
+    .card-price
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin-top: 14px
+
+        &__bottom
+            display: flex
+            flex-direction: column
+            p
+                font-weight: 500
+                font-size: 11px
+                line-height: 13px
+                text-transform: uppercase
+                color: #BDBDBD
+
+        button
+            background: #fff
+            box-sizing: border-box
+            border-radius: 8px
+            border: none
+            cursor: pointer
+            &:hover
+                transform: scale(1.2, 1.2)
+
+    .card
+        border: 1px solid #f3f3f3
+        padding: 20px 29px 34px 30px
+        max-width: 210px
+        border-radius: 40px
+        margin-bottom: 40px
+
+        p
+            font-style: normal
+            font-weight: normal
+            font-size: 14px
+            line-height: 19px
+
+        &__descr
+            margin-top: 14px
