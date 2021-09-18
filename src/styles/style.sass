@@ -1,3 +1,31 @@
+*
+    margin: 0
+    padding: 0
+    font-family: 'Inter', sans-serif
+    box-sizing: border-box
+
+body
+    background-color: #e7f6ff
+
+// custom scrollbar
+
+::-webkit-scrollbar
+    width: 20px
+
+::-webkit-scrollbar-track
+    background-color: transparent
+
+::-webkit-scrollbar-thumb
+    background-color: #d6dee1
+    border-radius: 20px
+    border: 6px solid transparent
+    background-clip: content-box
+
+    &:hover
+        background-color: #a8bbbf
+
+// main section
+
 .wrapper
     background: #fff
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04)
@@ -6,7 +34,7 @@
     margin: 50px auto
 
     .overlay
-        position: absolute
+        position: fixed
         left: 0
         top: 0
         height: 100%
