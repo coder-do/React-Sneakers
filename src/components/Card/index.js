@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
-const Card = ({ img, title, price }) => {
+const Card = ({ img, title, price, onFavorite }) => {
+
+    const [checked, setChecked] = useState(false);
+
+    const isAdded = () => {
+        setChecked(checked ? false : true);
+    }
+
     return (
         <div className='card'>
-            <div className='heart'>
+            <div className='heart' onClick={onFavorite}>
                 <img src='img/heart.svg' alt="heartIcon" />
             </div>
             <Zoom zoomMargin={150}>
@@ -23,7 +30,12 @@ const Card = ({ img, title, price }) => {
                     <b>{price} руб</b>
                 </div>
                 <button>
-                    <img width={32} height={32} src='img/plus.png' alt="plusIcon" />
+                    <img
+                        width={32} height={32}
+                        src={checked ? 'img/ok.svg' : 'img/plus.png'}
+                        onClick={isAdded}
+                        alt="plusIcon" className='plus'
+                    />
                 </button>
             </div>
         </div>

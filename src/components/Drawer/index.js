@@ -1,9 +1,14 @@
 import React from 'react';
 
-const Drawer = () => {
+const Drawer = ({ onClose }) => {
     return (
         <div className='drawer'>
-            <h2>Корзина <img src='img/close.svg' className='drawer__close' alt="removeBtn" /></h2>
+            <h2>Корзина <img
+                src='img/close.svg'
+                className='drawer__close' alt="removeBtn"
+                onClick={onClose}
+            />
+            </h2>
 
             <div className='items'>
                 <div className='cartItem'>

@@ -154,6 +154,12 @@ header
     border-bottom: 1px solid #f4f4f4
     padding-bottom: 40px
 
+    img
+        &:hover
+            transform: scale(1.15)
+        &:active
+            transform: scale(1)
+
     .headerLeft
         display: flex
         margin: 43px 0 0 45px
@@ -214,9 +220,15 @@ header
             box-sizing: border-box
             border-radius: 8px
             border: none
-            cursor: pointer
+
             &:hover
-                transform: scale(1.2, 1.2)
+                transform: scale(1.2)
+
+            &:active
+                transform: scale(1)
+
+            .plus
+                cursor: pointer
 
     .card
         border: 1px solid #f3f3f3
@@ -247,6 +259,13 @@ header
             position: absolute
             cursor: pointer
             z-index: 1
+
+            img
+                &:hover
+                    filter: invert(7%) sepia(30%) saturate(1003%) hue-rotate(290deg) brightness(109%) contrast(98%)
+
+                &:active
+                    filter: invert(9%) sepia(30%) saturate(1003%) hue-rotate(290deg) brightness(109%) contrast(98%)
 
     &__search
         border: 1px solid #f3f3f3

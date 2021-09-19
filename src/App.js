@@ -1,3 +1,4 @@
+import React, { useState, useContext } from 'react';
 import Card from './components/Card';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
@@ -66,13 +67,22 @@ const content = [
 ]
 
 function App() {
+
+    const [opened, setOpened] = useState(false)
+
+    const onFavoriteHandler = () => {
+        console.log("Heart button clicked");
+    }
+
     return (
         <div className="wrapper">
-            <div style={{ display: 'none' }} className='overlay'>
-                <Drawer />
-            </div>
+            {opened && (
+                <div className='overlay'>
+                    <Drawer onClose={() => setOpened(false)} />
+                </div>
+            )}
 
-            <Header />
+            <Header onClickCart={() => setOpened(true)} />
 
             <div className='content'>
                 <div className='content__main-wrapper'>
@@ -86,10 +96,11 @@ function App() {
                     {content.map((el, ind) => {
                         return (
                             <Card
+                                key={ind}
                                 img={el.imageUrl}
                                 price={el.price}
                                 title={el.name}
-                                key={ind}
+                                onFavorite={onFavoriteHandler}
                             />
                         )
                     })}
