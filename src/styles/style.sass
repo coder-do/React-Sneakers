@@ -278,6 +278,17 @@ header
         margin-bottom: 40px
         justify-content: space-between
 
+        .go-back
+            vertical-align: middle
+            margin-right: 30px
+            cursor: pointer
+
+            &:hover
+                transform: scale(1.15)
+
+            &:active
+                transform: scale(1)
+
         input
             border: 0
             padding: 10px
@@ -285,3 +296,29 @@ header
 
             &:focus-visible
                 outline: 0
+
+.emptyCart
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    padding: 25vh 20px
+
+    h2
+        font-weight: 600
+        font-size: 22px
+        line-height: 27px
+        margin: 21px 0 9px !important
+
+    &__descr
+        line-height: 24px
+        text-align: center
+        color: #000000
+        opacity: 0.4
+        margin-bottom: 40px
+
+    button
+        img
+            position: relative
+            top: 2px
+            left: -50px
