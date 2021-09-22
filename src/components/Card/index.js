@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import Zoom from 'react-medium-image-zoom';
 import axios from 'axios';
+import Loader from '../Loader';
 import 'react-medium-image-zoom/dist/styles.css';
 
-const Card = ({ img, title, price, onFavorite, onPlus, onDelete, fav = false }) => {
+const Card = ({
+    img,
+    price,
+    title,
+    onPlus,
+    isAdded,
+    onDelete,
+    isLoading,
+    onFavorite,
+    isFavorited,
+    fav = false
+}) => {
     const [checked, setChecked] = useState(false);
     const [favorite, setFavorite] = useState(false);
 
-    const isAdded = async () => {
+    const isAddedToCart = async () => {
         if (!checked) {
             onPlus();
             setChecked(checked ? false : true);
@@ -30,33 +42,41 @@ const Card = ({ img, title, price, onFavorite, onPlus, onDelete, fav = false }) 
     }
 
     return (
-        <div className='card' >
-            <div className='heart' onClick={onFavoriteHandler}>
-                <img src={favorite || fav ? 'img/heart-red.svg' : 'img/heart.svg'} alt="heartIcon" />
-            </div>
-            <Zoom zoomMargin={150}>
-                <img
-                    src={img}
-                    width={133}
-                    height={122}
-                    alt="botas"
-                />
-            </Zoom>
-            <p className='card__descr'>{title}</p>
-            <div className='card-price'>
-                <div className='card-price__bottom'>
-                    <p>Цена:</p>
-                    <b>{price} руб</b>
-                </div>
-                <button>
-                    <img
-                        width={32} height={32}
-                        src={checked ? 'img/ok.svg' : 'img/plus.png'}
-                        onClick={isAdded}
-                        alt="plusIcon" className='plus'
-                    />
-                </button>
-            </div>
+        <div className='card'>
+            {
+                isLoading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <div className='heart' onClick={onFavoriteHandler}>
+                            <img src={favorite || fav || isFavorited ? 'img/heart-red.svg' : 'img/heart.svg'} alt="heartIcon" />
+                        </div>
+                        <Zoom zoomMargin={150}>
+                            <img
+                                src={img}
+                                width={133}
+                                height={122}
+                                alt="botas"
+                            />
+                        </Zoom>
+                        <p className='card__descr'>{title}</p>
+                        <div className='card-price'>
+                            <div className='card-price__bottom'>
+                                <p>Цена:</p>
+                                <b>{price} руб</b>
+                            </div>
+                            <button>
+                                <img
+                                    width={32} height={32}
+                                    src={checked || isAdded ? 'img/ok.svg' : 'img/plus.png'}
+                                    onClick={isAddedToCart}
+                                    alt="plusIcon" className='plus'
+                                />
+                            </button>
+                        </div>
+                    </>
+                )
+            }
         </div>
     )
 }

@@ -3,12 +3,38 @@ import Card from '../components/Card';
 
 function Home({
     items,
+    cartItems,
+    favorites,
+    isLoading,
+    onAddHandler,
     searchedItems,
     onSearchHandler,
-    onAddHandler,
     onDeleteHandler,
     onFavoriteHandler
 }) {
+
+    const Re = () => {
+        const f = items.filter(item => item.name.toLowerCase().includes(searchedItems))
+        return (isLoading ? [...Array(12)] : f)
+            .map((el, ind) => (
+                <Card
+                    key={ind}
+                    id={el?.id}
+                    fav={false}
+                    title={el?.name}
+                    price={el?.price}
+                    img={el?.imageUrl}
+                    isLoading={isLoading}
+                    onPlus={() => onAddHandler(el)}
+                    onFavorite={() => onFavoriteHandler(el)}
+                    onDelete={(obj, isFav) => onDeleteHandler(obj, isFav)}
+                    isAdded={cartItems.some(ell => ell.imageUrl === el?.imageUrl)}
+                    isFavorited={favorites.some(ell => ell.imageUrl === el?.imageUrl)}
+                />
+            ))
+
+    }
+
     return (
         <div className='content'>
             <div className='content__main-wrapper'>
@@ -19,22 +45,9 @@ function Home({
                 </div>
             </div>
             <div className='content__wrapper'>
-                {items.filter(item => item.name.toLowerCase().includes(searchedItems))
-                    .map((el, ind) => {
-                        return (
-                            <Card
-                                fav={false}
-                                id={el.id}
-                                key={ind}
-                                img={el.imageUrl}
-                                price={el.price}
-                                title={el.name}
-                                onPlus={() => onAddHandler(el)}
-                                onFavorite={() => onFavoriteHandler(el)}
-                                onDelete={(obj, isFav) => onDeleteHandler(obj, isFav)}
-                            />
-                        )
-                    })}
+                {
+                    Re()
+                }
             </div>
         </div>
     )
