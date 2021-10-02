@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AppContext from './context';
 import { Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
@@ -49,11 +50,13 @@ function App() {
 
     const onDeleteHandler = async (id, isFav) => {
         if (isFav) {
-            await axios.delete(`${URL}/favorites/${id}`)
-            setFavorites(prev => prev.filter(item => item.id !== id));
+            await axios.delete(`${URL}/favorites/${id}`).then(res => {
+                setFavorites(prev => prev.filter(item => item.imageUrl !== res.data.imageUrl));
+            })
         } else {
-            await axios.delete(`${URL}/cart/${id}`)
-            setCartItems(prev => prev.filter(item => item.id !== id));
+            await axios.delete(`${URL}/cart/${id}`).then(res => {
+                setCartItems(prev => prev.filter(item => item.imageUrl !== res.data.imageUrl));
+            })
         }
     };
 
@@ -61,45 +64,48 @@ function App() {
         setSearchedItems(e.target.value)
     };
 
+    const isItemAdded = (imageUrl) => {
+        return cartItems.some(ell => ell.imageUrl === imageUrl);
+    };
+
     return (
-        <div className="wrapper">
-            {opened && (
-                <div className='overlay'>
-                    <Drawer
-                        items={cartItems}
-                        onClose={() => setOpened(false)}
-                        onDelete={(obj) => onDeleteHandler(obj)}
-                    />
-                </div>
-            )}
+        <AppContext.Provider
+            value={{
+                items,
+                opened,
+                loading,
+                cartItems,
+                favorites,
+                searchedItems,
+                isItemAdded,
+                onAddHandler,
+                onSearchHandler,
+                onDeleteHandler,
+                onFavoriteHandler
+            }}
+        >
+            <div className="wrapper">
+                {opened && (
+                    <div className='overlay'>
+                        <Drawer
+                            items={cartItems}
+                            onClose={() => setOpened(false)}
+                            onDelete={(obj) => onDeleteHandler(obj)}
+                        />
+                    </div>
+                )}
 
-            <Header onClickCart={() => setOpened(true)} />
+                <Header onClickCart={() => setOpened(true)} />
 
-            <Route path='/' exact>
-                <Home
-                    items={items}
-                    isLoading={loading}
-                    cartItems={cartItems}
-                    favorites={favorites}
-                    onAddHandler={onAddHandler}
-                    searchedItems={searchedItems}
-                    onSearchHandler={onSearchHandler}
-                    onDeleteHandler={onDeleteHandler}
-                    onFavoriteHandler={onFavoriteHandler}
-                />
-            </Route>
+                <Route path='/' exact>
+                    <Home />
+                </Route>
 
-            <Route path='/favorites' exact>
-                <Favorites
-                    items={favorites}
-                    onAddHandler={onAddHandler}
-                    searchedItems={searchedItems}
-                    onSearchHandler={onSearchHandler}
-                    onDeleteHandler={onDeleteHandler}
-                    onFavoriteHandler={onFavoriteHandler}
-                />
-            </Route>
-        </div>
+                <Route path='/favorites' exact>
+                    <Favorites />
+                </Route>
+            </div>
+        </AppContext.Provider>
     );
 }
 

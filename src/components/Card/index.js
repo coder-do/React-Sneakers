@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import AppContext from '../../context';
 import Zoom from 'react-medium-image-zoom';
 import axios from 'axios';
 import Loader from '../Loader';
@@ -9,24 +10,25 @@ const Card = ({
     price,
     title,
     onPlus,
-    isAdded,
     onDelete,
     isLoading,
     onFavorite,
     isFavorited,
     fav = false
 }) => {
-    const [checked, setChecked] = useState(false);
+    const { isItemAdded } = useContext(AppContext);
     const [favorite, setFavorite] = useState(false);
 
+    let isAdded = isItemAdded(img);
+
     const isAddedToCart = async () => {
-        if (!checked) {
+        if (!isAdded) {
             onPlus();
-            setChecked(checked ? false : true);
+            isAdded = true;
         } else {
             const item = await fetchData('/cart', img);
             await onDelete(item[0].id, false);
-            setChecked(false);
+            isAdded = false;
         }
     }
 
@@ -68,7 +70,7 @@ const Card = ({
                             <button>
                                 <img
                                     width={32} height={32}
-                                    src={checked || isAdded ? 'img/ok.svg' : 'img/plus.png'}
+                                    src={isAdded ? 'img/ok.svg' : 'img/plus.png'}
                                     onClick={isAddedToCart}
                                     alt="plusIcon" className='plus'
                                 />

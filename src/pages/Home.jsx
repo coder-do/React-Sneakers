@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../context';
 import Card from '../components/Card';
 
-function Home({
-    items,
-    cartItems,
-    favorites,
-    isLoading,
-    onAddHandler,
-    searchedItems,
-    onSearchHandler,
-    onDeleteHandler,
-    onFavoriteHandler
-}) {
+function Home() {
+    const {
+        items,
+        cartItems,
+        favorites,
+        isLoading,
+        onAddHandler,
+        searchedItems,
+        onSearchHandler,
+        onDeleteHandler,
+        onFavoriteHandler
+    } = useContext(AppContext);
 
     const Re = () => {
         const f = items.filter(item => item.name.toLowerCase().includes(searchedItems))

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../components/Card';
+import AppContext from '../context';
 
-function Favorites({
-    items,
-    searchedItems,
-    onAddHandler,
-    onDeleteHandler,
-    onFavoriteHandler
-}) {
+function Favorites() {
+    const {
+        favorites,
+        searchedItems,
+        onAddHandler,
+        onDeleteHandler,
+        onFavoriteHandler
+    } = useContext(AppContext);
+
     return (
         <div className='content'>
             <div className='content__main-wrapper'>
@@ -17,7 +20,7 @@ function Favorites({
                 </Link>Мои закладки</h1>
             </div>
             <div className='content__wrapper'>
-                {items.filter(item => item.name.toLowerCase().includes(searchedItems))
+                {favorites.filter(item => item.name.toLowerCase().includes(searchedItems))
                     .map((el, ind) => {
                         return (
                             <Card
