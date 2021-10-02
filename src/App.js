@@ -81,7 +81,8 @@ function App() {
                 onAddHandler,
                 onSearchHandler,
                 onDeleteHandler,
-                onFavoriteHandler
+                onFavoriteHandler,
+                empty: favorites.length === 0
             }}
         >
             <div className="wrapper">

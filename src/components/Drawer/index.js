@@ -12,6 +12,7 @@ const Drawer = ({ onClose, onDelete, items = [] }) => {
     }, [])
 
     const empty = cartItems.length !== 0;
+
     return (
         <div className='drawer'>
             <h2>Корзина <img

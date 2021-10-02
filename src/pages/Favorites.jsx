@@ -5,12 +5,33 @@ import AppContext from '../context';
 
 function Favorites() {
     const {
+        loading,
         favorites,
         searchedItems,
         onAddHandler,
         onDeleteHandler,
         onFavoriteHandler
     } = useContext(AppContext);
+
+    const Favs = () => {
+        const f = favorites.filter(item => item.name.toLowerCase().includes(searchedItems));
+        return (loading ? [...Array(4)] : f).map((el, ind) => {
+            return (
+                <Card
+                    fav
+                    key={ind}
+                    id={el?.id}
+                    title={el?.name}
+                    price={el?.price}
+                    img={el?.imageUrl}
+                    isLoading={loading}
+                    onPlus={() => onAddHandler(el)}
+                    onFavorite={() => onFavoriteHandler(el)}
+                    onDelete={(obj, isFav) => onDeleteHandler(obj, isFav)}
+                />
+            )
+        })
+    }
 
     return (
         <div className='content'>
@@ -20,22 +41,7 @@ function Favorites() {
                 </Link>Мои закладки</h1>
             </div>
             <div className='content__wrapper'>
-                {favorites.filter(item => item.name.toLowerCase().includes(searchedItems))
-                    .map((el, ind) => {
-                        return (
-                            <Card
-                                fav
-                                id={el.id}
-                                key={ind}
-                                img={el.imageUrl}
-                                price={el.price}
-                                title={el.name}
-                                onPlus={() => onAddHandler(el)}
-                                onFavorite={() => onFavoriteHandler(el)}
-                                onDelete={(obj, isFav) => onDeleteHandler(obj, isFav)}
-                            />
-                        )
-                    })}
+                <Favs />
             </div>
         </div>
     )

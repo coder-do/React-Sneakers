@@ -7,7 +7,7 @@ function Home() {
         items,
         cartItems,
         favorites,
-        isLoading,
+        loading,
         onAddHandler,
         searchedItems,
         onSearchHandler,
@@ -17,7 +17,7 @@ function Home() {
 
     const Re = () => {
         const f = items.filter(item => item.name.toLowerCase().includes(searchedItems))
-        return (isLoading ? [...Array(12)] : f)
+        return (loading ? [...Array(12)] : f)
             .map((el, ind) => (
                 <Card
                     key={ind}
@@ -26,7 +26,7 @@ function Home() {
                     title={el?.name}
                     price={el?.price}
                     img={el?.imageUrl}
-                    isLoading={isLoading}
+                    isLoading={loading}
                     onPlus={() => onAddHandler(el)}
                     onFavorite={() => onFavoriteHandler(el)}
                     onDelete={(obj, isFav) => onDeleteHandler(obj, isFav)}
